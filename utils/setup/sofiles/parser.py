@@ -23,12 +23,15 @@ class BodyHandler(xml.sax.ContentHandler):
         self.rowcount += 1
         body = attrs.get('Body', None)
         outfile = os.path.join(OUTDIR, 'post-%s.html' % self.rowcount)
-        self.export_file(outfile, attrs)
+
+        dct = {'Title': attrs.get('Title', 'No title')}
+        dct['Body'] = attrs.get('Body', '<em>no body text</em>') * 100
+        self.export_file(outfile, dct)
 
     def export_file(self, path, context={}):
         path = normpath(expandvars(path))
         html = self.html_template.safe_substitute(context)
-        print("exporting to:%s\t bytes:%s" % (path, len(html)))
+        # print("exporting to:%s\t bytes:%s" % (path, len(html)))
         with open(path, 'w', encoding='utf-8') as file:
             file.write(html)
 
