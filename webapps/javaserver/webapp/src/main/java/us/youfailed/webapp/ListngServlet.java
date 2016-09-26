@@ -24,9 +24,14 @@ public class ListngServlet extends HttpServlet {
     HttpServletRequest request;
     HttpServletResponse response;
 
-    String strFilesDir = "C:\\Users\\JAMES\\develop\\nodevsjabba\\utils\\setup\\sofiles\\target\\htmlfiles";
+
+    String strFilesDir = System.getenv("OUTFILESDIR");
     Path filesPath = Paths.get(strFilesDir);
     File filesDir = Paths.get(strFilesDir).toFile();
+
+    public ListngServlet() {
+        if(strFilesDir == null) strFilesDir = "c:\\temp";
+    }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
