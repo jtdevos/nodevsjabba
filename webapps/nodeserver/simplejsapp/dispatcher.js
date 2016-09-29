@@ -21,7 +21,8 @@ class Dispatcher {
 
     dispatch(req, res) {
         var info = url.parse(req.url);
-        var handler = this.routes[info.path];
+        console.log("okay the pathname is: %s", info.pathname);
+        var handler = this.routes[info.pathname];
         if(!handler) {
             handler = this.defaultHandler;
         }
